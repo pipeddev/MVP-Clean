@@ -23,24 +23,18 @@ class MainActivity : AppCompatActivity(), MainView, OnClickListener {
 
     private lateinit var binding: ActivityMainBinding
     private val adapter: ResultAdapter by inject { parametersOf(this) }
-    private lateinit var presenter: MainPresenter
+    private val presenter: MainPresenter by inject { parametersOf(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        presenter = MainPresenterImpl(this, MainRepositoryImpl(DataSourceImpl()))
         presenter.onCreate()
 
-        setupAdapter()
         setupRecyclerView()
         setupSwipeRefresh()
         setupClicks()
-    }
-
-    private fun setupAdapter() {
-        //adapter = ResultAdapter(this)
     }
 
     private fun setupRecyclerView() {
