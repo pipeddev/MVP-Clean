@@ -16,19 +16,22 @@ import com.pipe.d.dev.clean.mainModule.presenter.MainPresenterImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity(), MainView, OnClickListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: ResultAdapter
     private lateinit var presenter: MainPresenter
+    // temporal
+    private val ds: DataSourceImpl by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        presenter = MainPresenterImpl(this, MainRepositoryImpl(DataSourceImpl()))
+        presenter = MainPresenterImpl(this, MainRepositoryImpl(ds))
         presenter.onCreate()
 
         setupAdapter()
